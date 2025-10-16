@@ -22,6 +22,7 @@ fi
 
 USAGE(){
     echo -e "$R USAGE:: sudo sh 21-backup.sh <SOURCE_DIR> <DEST_DIR> <DAYS>[Optional, default 14 days] $N"
+    exit 1
 }
 
 if [ $# -lt 2 ]; then
