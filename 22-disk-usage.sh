@@ -15,3 +15,10 @@ do
 done <<< $DISK_USAGE
 
 echo -e "Message Body: $MESSAGE"
+
+sh mail.sh "info@joindevops.com" "High DIsk Usage Alert" "High Disk Usage" "$MESSAGE" "$IP_ADDRESS"
+
+# TO_ADDRESS=$1
+# SUBJECT=$2
+# ALERT_TYPE=$3
+# MESSAGE_BODY=$4
