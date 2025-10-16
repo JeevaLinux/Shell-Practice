@@ -37,10 +37,14 @@ if [ ! -d $DEST_DIR ]; then
     echo -e "$R Destination $DEST_DIR does not exist $N"
     exit 1
 fi
-FILES=$(find $SOURCE_DIR -name "*.log" -type -f -mtime +14)
+FILES=$(find $SOURCE_DIR -name "*.log" -type -f -mtime +$DAYS)
 
 if [ ! -z "${FILES}" ]; then
-    echo "Files found"
+    echo "Files found: $FILES"
+    TIMESTAMP=$(date +%F-%H-%M)
+    ZIP_FILE_NAME="$DEST_DIR/app-logs-$TIMESTAMP.zip"
+    echo "Zip files name: $ZIP_FILE_NAME"
+    echo $FILES | zip -@ -j "$ZIP_FILE_NAME"
 else
     echo -e "No files to archeive ... $Y SKIPPING $N"
 fi
