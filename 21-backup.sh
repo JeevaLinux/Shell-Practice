@@ -20,9 +20,10 @@ if [ $USERID -ne 0 ]; then
     exit 1 #failure is other than 0
 fi
 
-USAGE() {
+USAGE(){
     echo -e "$R USAGE:: sudo sh 21-backup.sh <SOURCE_DIR> <DEST_DIR> <DAYS>[Optional, default 14 days] $N"
 }
+
 if [ $# -lt 2 ]; then
     USAGE
 fi
