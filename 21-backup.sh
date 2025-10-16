@@ -25,36 +25,43 @@ USAGE(){
     exit 1
 }
 
+### check SOURCE_DIR and DEST_DIR passed or not###
 if [ $# -lt 2 ]; then
     USAGE
 fi
-
+###Check SOURCE_DIR Exist###
 if [ ! -d $SOURCE_DIR ]; then
     echo -e "$R Source $SOURCE_DIR does not exist $N"
     exit 1
 fi
+### CHECK DEST_DIR Exist###
 if [ ! -d $DEST_DIR ]; then
     echo -e "$R Destination $DEST_DIR does not exist $N"
     exit 1
 fi
+### Find the Files##
 FILES=$(find $SOURCE_DIR -name "*.log" -type f -mtime +$DAYS)
 
 if [ ! -z "${FILES}" ]; then
+    ### Start ARchieval####
     echo "Files found: $FILES"
     TIMESTAMP=$(date +%F-%H-%M)
     ZIP_FILE_NAME="$DEST_DIR/app-logs-$TIMESTAMP.zip"
     echo "Zip files name: $ZIP_FILE_NAME"
     find $SOURCE_DIR -name "*.log" -type f -mtime +$DAYS | zip -@ -j "$ZIP_FILE_NAME"
 
+    ###CHeck Archieval Success or not###
     if [ -f $ZIP_FILE_NAME ]
     then
         echo -e "Archieval ... $G SUCCESS $N"
-            while IFS= read -r filepath
-            do
+        
+        ###Delete if success###
+        while IFS= read -r filepath
+        do
             echo "Deleting the file: $filepath"
             rm -rf $filepath
             echo "Deleted the file: $filepath"
-            done <<< $FILES_TO_DELETE   
+        done <<< $FILES  
     else
         echo "Archieval ... $R FAILURE $N"
         exit 1    
